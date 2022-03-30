@@ -1,0 +1,131 @@
+<?php
+/*
+Plugin Name:  Floating sticky button
+Plugin URI:   https://www.wpbeginner.com 
+Description:  A short little description of the plugin. It will be displayed on the Plugins page in WordPress admin area. 
+Version:      1.0
+Author:       WPBeginner 
+Author URI:   https://www.wpbeginner.com
+License:      GPL2
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  wpb-tutorial
+Domain Path:  /languages
+*/
+?>
+
+<?php
+add_action( 'wp_footer', 'awd_add_floating_info');
+function awd_add_floating_info () { 
+	$font = get_option('font');
+    $phone = get_option('phone');
+	$position = get_option('position');
+	$index = get_option('index');
+	$bottom = get_option('bottom');
+	$right = get_option('right');
+	$width = get_option('width');
+	
+?>
+
+<style>
+    .sticky-slider{
+        font-size:<?php echo $font; ?>px;
+        position:<?php echo $position; ?>;
+        z-index: <?php echo $index; ?>;
+        bottom:<?php echo $bottom;?>rem;
+        right:<?php echo $right;?>rem;  
+        width:<?php echo $width;?>px;   
+    }
+</style>
+<a href="tel:<?php echo $phone; ?>">
+  <button class="sticky-slider">Call us </button>
+</a>
+<?php 
+}
+
+
+
+function myplugin_register_settings() {
+    add_option( 'myplugin_option_name', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'myplugin_option_name', 'myplugin_callback' );
+
+    add_option( 'phone', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'phone', 'myplugin_callback' );
+
+	
+    add_option( 'position', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'position', 'myplugin_callback' );
+	
+	
+    add_option( 'index', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'index', 'myplugin_callback' );
+	
+	
+    add_option( 'bottom', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'bottom', 'myplugin_callback' );
+	
+	
+    add_option( 'right', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'right', 'myplugin_callback' );
+	
+	add_option( 'width', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'width', 'myplugin_callback' );
+ }
+ add_action( 'admin_init', 'myplugin_register_settings' );
+
+ 
+
+//option page register
+function myplugin_register_options_page() {
+    add_options_page('Page Title', 'Plugin Menu', 'manage_options', 'myplugin', 'myplugin_options_page');
+  }
+  add_action('admin_menu', 'myplugin_register_options_page');
+?>
+
+
+  <?php function myplugin_options_page()
+{
+?>
+  <div>
+  <?php screen_icon(); ?>
+  <h2>My Plugin Page Title</h2>
+  <form method="post" action="options.php">
+  <?php settings_fields( 'myplugin_options_group' ); ?>
+  <h3>This is my option</h3>
+  <p>Some text here.</p>
+  
+  
+  <label for="font">Fontsize</label>
+  <input type="text" id="font" name="font" value="<?php echo get_option('font'); ?>" />
+	  </br>
+	  </br>
+  <label for="phone">Phone</label>
+  <input type="text" id="phone" name="phone" value="<?php echo get_option('phone'); ?>" />
+</br>
+</br>
+	  
+  <label for="position">position</label>
+  <input type="text" id="position" name="position" value="<?php echo get_option('position'); ?>" />
+</br>
+</br>
+  <label for="index">z index</label>
+  <input type="text" id="index" name="index" value="<?php echo get_option('index'); ?>" />
+	  </br>
+	  </br>
+  <label for="bottom">bottom</label>
+  <input type="text" id="bottom" name="bottom" value="<?php echo get_option('bottom'); ?>" />
+	  </br>
+	  </br>
+  <label for="right">right</label>
+  <input type="text" id="right" name="right" value="<?php echo get_option('right'); ?>" />
+    </br>
+	  </br>
+   <label for="width">width</label>
+  <input type="text" id="width" name="width" value="<?php echo get_option('width'); ?>" />
+</br>
+</br>
+  <?php  submit_button(); ?>
+  </form>
+  </div>
+<?php
+} ?>
+
