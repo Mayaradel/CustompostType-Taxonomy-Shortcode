@@ -23,6 +23,7 @@ function awd_add_floating_info () {
 	$bottom = get_option('bottom');
 	$right = get_option('right');
 	$width = get_option('width');
+	$color = get_option('colorpicker');
 	
 ?>
 
@@ -33,7 +34,8 @@ function awd_add_floating_info () {
         z-index: <?php echo $index; ?>;
         bottom:<?php echo $bottom;?>rem;
         right:<?php echo $right;?>rem;  
-        width:<?php echo $width;?>px;   
+        width:<?php echo $width;?>px;  
+		background-color: <?php echo $color;?>;
     }
 </style>
 <a href="tel:<?php echo $phone; ?>">
@@ -45,8 +47,8 @@ function awd_add_floating_info () {
 
 
 function myplugin_register_settings() {
-    add_option( 'myplugin_option_name', 'This is my option value.');
-    register_setting( 'myplugin_options_group', 'myplugin_option_name', 'myplugin_callback' );
+    add_option( 'font', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'font', 'myplugin_callback' );
 
     add_option( 'phone', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'phone', 'myplugin_callback' );
@@ -69,6 +71,13 @@ function myplugin_register_settings() {
 	
 	add_option( 'width', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'width', 'myplugin_callback' );
+	
+	add_option( 'width', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'width', 'myplugin_callback' );
+	
+	
+	add_option( 'colorpicker', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'colorpicker', 'myplugin_callback' );
  }
  add_action( 'admin_init', 'myplugin_register_settings' );
 
@@ -103,27 +112,36 @@ function myplugin_register_options_page() {
 </br>
 </br>
 	  
-  <label for="position">position</label>
+  <label for="position">Position</label>
   <input type="text" id="position" name="position" value="<?php echo get_option('position'); ?>" />
+</br> 
 </br>
-</br>
-  <label for="index">z index</label>
+  <label for="index">Z index</label>
   <input type="text" id="index" name="index" value="<?php echo get_option('index'); ?>" />
 	  </br>
 	  </br>
-  <label for="bottom">bottom</label>
+  <label for="bottom">Bottom</label>
   <input type="text" id="bottom" name="bottom" value="<?php echo get_option('bottom'); ?>" />
 	  </br>
 	  </br>
-  <label for="right">right</label>
+  <label for="right">Right</label>
   <input type="text" id="right" name="right" value="<?php echo get_option('right'); ?>" />
     </br>
 	  </br>
-   <label for="width">width</label>
+   <label for="width">Width</label>
   <input type="text" id="width" name="width" value="<?php echo get_option('width'); ?>" />
+
 </br>
 </br>
-  <?php  submit_button(); ?>
+
+<label for="colorpicker">Background color </label>
+<input type="color" id="colorpicker" name="colorpicker" value="<?php echo get_option('colorpicker'); ?>" />
+    
+</br> 
+ 
+ <?php  
+  submit_button();
+   ?>
   </form>
   </div>
 <?php
