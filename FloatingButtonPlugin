@@ -14,7 +14,10 @@ Domain Path:  /languages
 ?>
 
 <?php
-add_action( 'wp_footer', 'awd_add_floating_info');
+   if( wp_is_mobile()){
+  add_action( 'wp_footer', 'awd_add_floating_info');
+ }
+
 function awd_add_floating_info () { 
 	$font = get_option('font');
     $phone = get_option('phone');
@@ -26,8 +29,6 @@ function awd_add_floating_info () {
 	$color = get_option('colorpicker');
 	$distance = get_option('distance');
 	$rad = get_option('radius');
-	
-	
 ?>
 
 <style>
@@ -43,6 +44,7 @@ function awd_add_floating_info () {
     }
     
 </style>
+
 <a href="tel:<?php echo $phone; ?>">
   <button 
   class="sticky-slider" 
@@ -50,15 +52,12 @@ function awd_add_floating_info () {
   Call us 
 </button>
 </a>
-<script>
-//Get the button
-var mybutton = document.getElementById("12");
 
-//When the user scrolls down 20px from the top of the document, show the button
+<script>
+var mybutton = document.getElementById("12");
 window.onscroll = function() {
 scrollFunction()
 };
-
 function scrollFunction() {
   if (document.body.scrollTop > <?php echo $distance;?> || document.documentElement.scrollTop > <?php echo $distance;?>) {
     mybutton.style.display = "block";
@@ -70,7 +69,6 @@ function scrollFunction() {
 
 <?php 
 }
-
 
 
 function myplugin_register_settings() {
@@ -189,6 +187,8 @@ function myplugin_register_options_page() {
    ?>
   </form>
   </div>
+
+
 
 <?php
 } ?>
