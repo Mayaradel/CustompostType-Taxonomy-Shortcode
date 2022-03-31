@@ -17,13 +17,16 @@ Domain Path:  /languages
 add_action( 'wp_footer', 'awd_add_floating_info');
 function awd_add_floating_info () { 
 	$font = get_option('font');
-        $phone = get_option('phone');
+    $phone = get_option('phone');
 	$position = get_option('position');
 	$index = get_option('index');
 	$bottom = get_option('bottom');
 	$right = get_option('right');
 	$width = get_option('width');
 	$color = get_option('colorpicker');
+	$distance = get_option('distance');
+	$rad = get_option('radius');
+	
 	
 ?>
 
@@ -35,12 +38,36 @@ function awd_add_floating_info () {
         bottom:<?php echo $bottom;?>rem;
         right:<?php echo $right;?>rem;  
         width:<?php echo $width;?>px;  
-	background-color: <?php echo $color;?>;
+		background-color: <?php echo $color;?>;
+		border-radius: <?php echo $rad;?>px;
     }
+    
 </style>
 <a href="tel:<?php echo $phone; ?>">
-  <button class="sticky-slider">Call us </button>
+  <button 
+  class="sticky-slider" 
+  id="12">
+  Call us 
+</button>
 </a>
+<script>
+//Get the button
+var mybutton = document.getElementById("12");
+
+//When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {
+scrollFunction()
+};
+
+function scrollFunction() {
+  if (document.body.scrollTop > <?php echo $distance;?> || document.documentElement.scrollTop > <?php echo $distance;?>) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+</script>
+
 <?php 
 }
 
@@ -69,15 +96,21 @@ function myplugin_register_settings() {
     add_option( 'right', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'right', 'myplugin_callback' );
 	
-    add_option( 'width', 'This is my option value.');
-    register_setting( 'myplugin_options_group', 'width', 'myplugin_callback' );
-	
-    add_option( 'width', 'This is my option value.');
+	add_option( 'width', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'width', 'myplugin_callback' );
 	
 	
-    add_option( 'colorpicker', 'This is my option value.');
+	add_option( 'colorpicker', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'colorpicker', 'myplugin_callback' );
+	
+	
+	add_option( 'distance', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'distance', 'myplugin_callback' );
+	
+	add_option( 'radius', 'This is my option value.');
+    register_setting( 'myplugin_options_group', 'radius', 'myplugin_callback' );
+	
+	
  }
  add_action( 'admin_init', 'myplugin_register_settings' );
 
@@ -96,11 +129,10 @@ function myplugin_register_options_page() {
 ?>
   <div>
   <?php screen_icon(); ?>
-  <h2>My Plugin Page Title</h2>
+  <h2>My option page</h2>
   <form method="post" action="options.php">
   <?php settings_fields( 'myplugin_options_group' ); ?>
-  <h3>This is my option</h3>
-  <p>Some text here.</p>
+  <h3>Enter your customized data</h3>
   
   
   <label for="font">Fontsize</label>
@@ -134,6 +166,19 @@ function myplugin_register_options_page() {
 </br>
 </br>
 
+
+  <label for="distance">Scroll distance</label>
+  <input type="text" id="distance" name="distance" value="<?php echo get_option('distance'); ?>" />
+
+</br>
+</br>
+
+<label for="radius">border radius</label>
+  <input type="text" id="radius" name="radius" value="<?php echo get_option('radius'); ?>" />
+
+</br>
+</br>
+
 <label for="colorpicker">Background color </label>
 <input type="color" id="colorpicker" name="colorpicker" value="<?php echo get_option('colorpicker'); ?>" />
     
@@ -144,6 +189,6 @@ function myplugin_register_options_page() {
    ?>
   </form>
   </div>
+
 <?php
 } ?>
-
