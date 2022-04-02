@@ -20,7 +20,7 @@ Domain Path:  /languages
 
 function awd_add_floating_info () { 
 	$font = get_option('font');
-    $phone = get_option('phone');
+        $phone = get_option('phone');
 	$position = get_option('position');
 	$index = get_option('index');
 	$bottom = get_option('bottom');
@@ -39,8 +39,8 @@ function awd_add_floating_info () {
         bottom:<?php echo $bottom;?>rem;
         right:<?php echo $right;?>rem;  
         width:<?php echo $width;?>px;  
-		background-color: <?php echo $color;?>;
-		border-radius: <?php echo $rad;?>px;
+	background-color: <?php echo $color;?>;
+	border-radius: <?php echo $rad;?>px;
     }
     
 </style>
@@ -94,18 +94,18 @@ function myplugin_register_settings() {
     add_option( 'right', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'right', 'myplugin_callback' );
 	
-	add_option( 'width', 'This is my option value.');
+    add_option( 'width', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'width', 'myplugin_callback' );
 	
 	
-	add_option( 'colorpicker', 'This is my option value.');
+    add_option( 'colorpicker', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'colorpicker', 'myplugin_callback' );
 	
 	
-	add_option( 'distance', 'This is my option value.');
+    add_option( 'distance', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'distance', 'myplugin_callback' );
 	
-	add_option( 'radius', 'This is my option value.');
+    add_option( 'radius', 'This is my option value.');
     register_setting( 'myplugin_options_group', 'radius', 'myplugin_callback' );
 	
 	
@@ -157,7 +157,7 @@ function myplugin_register_options_page() {
   <label for="right">Right</label>
   <input type="text" id="right" name="right" value="<?php echo get_option('right'); ?>" />
     </br>
-	  </br>
+    </br>
    <label for="width">Width</label>
   <input type="text" id="width" name="width" value="<?php echo get_option('width'); ?>" />
 
